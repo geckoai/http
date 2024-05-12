@@ -1,4 +1,4 @@
-import { Prop } from '@quick-toolkit/class-transformer';
+import { Prop } from '@geckoai/class-transformer';
 
 /**
  * @class UserVo

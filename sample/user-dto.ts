@@ -1,4 +1,4 @@
-import { Typed } from '@quick-toolkit/class-transformer';
+import { Typed } from '@geckoai/class-transformer';
 import { ApiProperty } from '../src';
 import { ApiRequest } from '../src';
 import { UserVo } from './user-vo';

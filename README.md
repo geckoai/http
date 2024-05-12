@@ -1,12 +1,12 @@
 # http
-The `@quick-toolkit/http` module takes the corresponding data from the [@quick-toolkit/class-transformer](https://github.com/quick-toolkit/class-transformer) conversion instance and sends a request to the server. This module uses Axios.
+The `@geckoai/http` module takes the corresponding data from the [@geckoai/class-transformer](https://github.com/quick-toolkit/class-transformer) conversion instance and sends a request to the server. This module uses Axios.
 
 ## Installing
 
 ```shell
-npm i @quick-toolkit/http
+npm i @geckoai/http
 #or
-yarn add @quick-toolkit/http
+yarn add @geckoai/http
 ```
 
 ## Documentation

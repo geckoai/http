@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-import { ClassMirror } from '@quick-toolkit/class-mirror';
+import { ClassMirror } from '@geckoai/class-mirror';
 import { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiPropertyDecorate, ApiRequestDecorate } from '../../metadatas';
 

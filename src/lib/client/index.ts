@@ -24,7 +24,9 @@ import { ClassMirror } from '@geckoai/class-mirror';
 import { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiPropertyDecorate, ApiRequestDecorate } from '../../metadatas';
 
+// @ts-ignore
 import defaults from 'axios/lib/defaults';
+// @ts-ignore
 import mergeConfig from 'axios/lib/core/mergeConfig';
 
 /**
@@ -66,14 +68,19 @@ export class HttpClient extends Axios {
       const pathVars: Record<string, string> = {};
       propertyMirrors.forEach((propertyMirror) => {
         const value = data[propertyMirror.propertyKey as keyof D] as any;
-        if (value !== undefined && value !== '') {
+        console.log(value, 'xxv');
+        if (value !== undefined) {
           propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
             if (m.metadata.in === 'path') {
-              pathVars[propertyMirror.propertyKey as string] = value;
-              config.url = o.metadata.url;
+              if (value !== '') {
+                pathVars[propertyMirror.propertyKey as string] = value;
+                config.url = o.metadata.url;
+              }
             } else if (m.metadata.in === 'header') {
-              config.headers = config.headers || {};
-              config.headers[propertyMirror.propertyKey as any] = value;
+              if (value !== '') {
+                config.headers = config.headers || {};
+                config.headers[propertyMirror.propertyKey as any] = value;
+              }
             } else {
               newData[propertyMirror.propertyKey] = value;
             }
@@ -99,6 +106,8 @@ export class HttpClient extends Axios {
     if (!filter.length) {
       throw new TypeError('Invalid ApiRequestDecorate.');
     }
+
+    console.log(config.data);
 
     return {
       config,

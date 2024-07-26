@@ -1,14 +1,11 @@
 import { Typed } from '@geckoai/class-transformer';
-import { ApiProperty } from '../src';
-import { ApiRequest } from '../src';
-import { UserVo } from './user-vo';
+import { ApiProperty, ApiRequest } from '../src';
 
 @ApiRequest({
   url: '/user/{id}',
   method: 'post',
   description: '修改用户',
   scene: 'UserVO',
-  response: UserVo,
 })
 /**
  * @class UserDto
@@ -17,17 +14,15 @@ export class UserDto {
   @ApiProperty({
     description: 'ID',
     in: 'path',
-    required: true,
   })
-  @Typed({ required: true })
+  @Typed()
   public id: number;
 
   @ApiProperty({
     description: 'name',
     in: 'query',
-    required: true,
   })
-  @Typed({ required: true })
+  @Typed()
   public name: string;
 
   @ApiProperty({

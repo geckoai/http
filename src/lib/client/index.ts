@@ -68,7 +68,6 @@ export class HttpClient extends Axios {
       const pathVars: Record<string, string> = {};
       propertyMirrors.forEach((propertyMirror) => {
         const value = data[propertyMirror.propertyKey as keyof D] as any;
-        console.log(value, 'xxv');
         if (value !== undefined) {
           propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
             if (m.metadata.in === 'path') {
@@ -106,8 +105,6 @@ export class HttpClient extends Axios {
     if (!filter.length) {
       throw new TypeError('Invalid ApiRequestDecorate.');
     }
-
-    console.log(config.data);
 
     return {
       config,

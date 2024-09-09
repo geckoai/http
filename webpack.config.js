@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   entry: {
-    index: path.resolve('dist', "cjs", 'index.js')
+    index: path.resolve('dist', "esnext", 'index.js')
   },
   mode: 'production',
   output: {
@@ -25,5 +25,5 @@ module.exports = {
       }
     ]
   },
-  target: ["web", "es5"]
+  target: "web"
 };

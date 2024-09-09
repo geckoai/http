@@ -24,9 +24,7 @@ import { ClassMirror } from '@geckoai/class-mirror';
 import { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ApiPropertyDecorate, ApiRequestDecorate } from '../../metadatas';
 
-// @ts-ignore
 import defaults from 'axios/lib/defaults';
-// @ts-ignore
 import mergeConfig from 'axios/lib/core/mergeConfig';
 
 /**

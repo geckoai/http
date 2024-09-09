@@ -96,6 +96,7 @@
     "apis",
     "node_modules",
     "**/*.spec.ts",
-    "test/**"
+    "test/**",
+    "packages"
   ]
 }

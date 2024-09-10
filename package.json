@@ -1,17 +1,16 @@
 {
   "name": "@geckoai/http",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "The HTTP module takes the corresponding data from the class-transformer conversion instance and sends a request to the server. This module uses Axios.",
   "main": "dist/cjs",
   "types": "dist/types",
   "scripts": {
     "build:clean": "rimraf dist && rimraf docs",
     "build:cjs": "tsc --project tsconfig.prod.cjs.json",
-    "build:esnext": "tsc --project tsconfig.prod.esnext.json",
     "build:types": "tsc --project tsconfig.prod.types.json",
     "build:umd": "webpack --config ./webpack.config.js",
     "build:doc": "typedoc --options ./typedoc.json",
-    "release": "yarn build:clean &&  yarn build:cjs && yarn build:esnext && yarn build:umd  && yarn build:types",
+    "release": "yarn build:clean &&  yarn build:cjs && yarn build:umd  && yarn build:types",
     "test": "mocha -w"
   },
   "repository": {

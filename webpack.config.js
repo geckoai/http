@@ -1,7 +1,7 @@
 const path = require('path');
 module.exports = {
   entry: {
-    index: path.resolve('dist', "esnext", 'index.js')
+    index: path.resolve('dist', "cjs", 'index.js')
   },
   mode: 'production',
   output: {

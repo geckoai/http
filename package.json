@@ -1,6 +1,6 @@
 {
   "name": "@geckoai/http",
-  "version": "1.1.0",
+  "version": "1.0.7",
   "description": "The HTTP module takes the corresponding data from the class-transformer conversion instance and sends a request to the server. This module uses Axios.",
   "main": "dist/cjs",
   "types": "dist/types",
@@ -29,6 +29,9 @@
     "url": "https://github.com/geckoai/http/issues"
   },
   "homepage": "https://github.com/geckoai/http#readme",
+  "dependencies": {
+    "@geckoai/axios": "1.7.7"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
@@ -38,7 +41,6 @@
     "@types/node": "16.18.97",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "@geckoai/axios": "1.7.7",
     "babel-loader": "^8.2.3",
     "chai": "^4.3.4",
     "eslint": "7",

@@ -97,6 +97,7 @@
     "node_modules",
     "**/*.spec.ts",
     "test/**",
-    "packages"
+    "packages",
+    "third-party"
   ]
 }

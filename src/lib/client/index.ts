@@ -21,11 +21,13 @@
  */
 
 import { ClassMirror } from '@geckoai/class-mirror';
-import { Axios, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Axios, AxiosRequestConfig, AxiosResponse } from '@geckoai/axios';
 import { ApiPropertyDecorate, ApiRequestDecorate } from '../../metadatas';
 
-import defaults from 'axios/lib/defaults';
-import mergeConfig from 'axios/lib/core/mergeConfig';
+// @ts-ignore
+import defaults from '@geckoai/axios/lib/defaults';
+// @ts-ignore
+import mergeConfig from '@geckoai/axios/lib/core/mergeConfig';
 
 /**
  * @class HttpClient

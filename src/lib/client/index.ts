@@ -59,7 +59,7 @@ export class HttpClient extends Axios {
     filter.forEach((o: ApiRequestDecorate) => {
       config.url = o.metadata.url;
       config.method = o.metadata.method;
-      config.headers = config.headers = {};
+      config.headers = config.headers ?? {};
       if (o.metadata.contentType) {
         config.headers['Content-Type'] = o.metadata.contentType;
       }
@@ -77,7 +77,7 @@ export class HttpClient extends Axios {
               }
             } else if (m.metadata.in === 'header') {
               if (value !== '') {
-                config.headers = config.headers || {};
+                config.headers = config.headers ?? {};
                 config.headers[propertyMirror.propertyKey as any] = value;
               }
             } else {

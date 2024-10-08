@@ -124,7 +124,7 @@ export class HttpClient extends Axios {
 
       // nobody
       if (['delete', 'get', 'head', 'options'].includes(config.method)) {
-        config.params = { ...newData };
+        config.params = { ...config.params, ...newData };
       }
     });
     if (!filter.length) {

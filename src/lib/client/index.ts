@@ -72,15 +72,14 @@ export class HttpClient extends Axios {
         if (value !== undefined) {
           propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
             if (m.metadata.in === 'path') {
-              if (value !== '') {
-                pathVars[propertyMirror.propertyKey as string] = value;
-                config.url = o.metadata.url;
-              }
+              pathVars[propertyMirror.propertyKey.toString()] = value;
+              config.url = o.metadata.url;
             } else if (m.metadata.in === 'header') {
-              if (value !== '') {
-                config.headers = config.headers ?? {};
-                config.headers[propertyMirror.propertyKey as any] = value;
-              }
+              config.headers = config.headers ?? {};
+              config.headers[propertyMirror.propertyKey.toString()] = value;
+            } else if (m.metadata.in === 'query') {
+              config.params = config.params ?? {};
+              config.params[propertyMirror.propertyKey.toString()] = value;
             } else if (m.metadata.in === 'formData') {
               formData = formData || new FormData();
               if (value instanceof Array) {
@@ -96,6 +95,7 @@ export class HttpClient extends Axios {
           });
         }
       });
+
       Object.keys(pathVars).forEach((key) => {
         config.url = (config.url || '')?.replace(
           new RegExp(`{s*${key}s*}`),
@@ -107,18 +107,16 @@ export class HttpClient extends Axios {
         if (formData) {
           config.data = formData;
           // 将data的数据合并至 formData中
-          if (newData) {
-            Object.keys(newData).forEach((x) => {
-              const data = newData[x];
-              if (data instanceof Array) {
-                data.forEach((v) => {
-                  formData?.append(x, v);
-                });
-              } else {
-                formData?.set(x, data);
-              }
-            });
-          }
+          Object.keys(newData).forEach((x) => {
+            const data = newData[x];
+            if (data instanceof Array) {
+              data.forEach((v) => {
+                formData?.append(x, v);
+              });
+            } else {
+              formData?.set(x, data);
+            }
+          });
         } else {
           config.data = newData;
         }
@@ -126,7 +124,7 @@ export class HttpClient extends Axios {
 
       // nobody
       if (['delete', 'get', 'head', 'options'].includes(config.method)) {
-        config.params = newData;
+        config.params = { ...newData };
       }
     });
     if (!filter.length) {

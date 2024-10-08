@@ -64,6 +64,7 @@ export class HttpClient extends Axios {
         config.headers['Content-Type'] = o.metadata.contentType;
       }
       const newData: Record<PropertyKey, any> = {};
+      let formData: FormData | undefined = undefined;
       const propertyMirrors = classMirror.getAllProperties();
       const pathVars: Record<string, string> = {};
       propertyMirrors.forEach((propertyMirror) => {
@@ -80,6 +81,15 @@ export class HttpClient extends Axios {
                 config.headers = config.headers ?? {};
                 config.headers[propertyMirror.propertyKey as any] = value;
               }
+            } else if (m.metadata.in === 'formData') {
+              formData = formData || new FormData();
+              if (value instanceof Array) {
+                value.map((x) =>
+                  formData?.append?.(propertyMirror.propertyKey.toString(), x)
+                );
+              } else {
+                formData.set(propertyMirror.propertyKey.toString(), value);
+              }
             } else {
               newData[propertyMirror.propertyKey] = value;
             }
@@ -94,7 +104,24 @@ export class HttpClient extends Axios {
       });
 
       if (['post', 'put', 'patch'].includes(config.method)) {
-        config.data = newData;
+        if (formData) {
+          config.data = formData;
+          // 将data的数据合并至 formData中
+          if (newData) {
+            Object.keys(newData).forEach((x) => {
+              const data = newData[x];
+              if (data instanceof Array) {
+                data.forEach((v) => {
+                  formData?.append(x, v);
+                });
+              } else {
+                formData?.set(x, data);
+              }
+            });
+          }
+        } else {
+          config.data = newData;
+        }
       }
 
       // nobody

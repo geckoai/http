@@ -21,7 +21,6 @@
  */
 
 import { ClassDecorate, ClassConstructor } from '@geckoai/class-mirror';
-import { LocaleLanguageKey } from '../../constants';
 
 /**
  * @class ApiRequestDecorate
@@ -40,9 +39,9 @@ export interface ApiRequestMetadataImpl {
   description?: string;
 
   /**
-   * 语言包
+   * 语言包 使用 Proxy实现 类型推断上来说它是一个string类型 实际上传入的是一个 Proxy 在proxy对象中实现get返回字符串
    */
-  locales?: Partial<Record<LocaleLanguageKey, string>>;
+  locale?: string;
 
   /**
    * 请求方法

@@ -25,5 +25,12 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    "@geckoai/class-transformer": "ClassTransformer",
+    "@geckoai/class-mirror": "ClassMirror",
+    "validator": "Validator",
+    "reflect-metadata": "Reflect",
+    "@geckoai/axios": "axios"
+  },
   target: "web"
 };

@@ -22,6 +22,5 @@
 
 export * from './lib';
 export * from './exception';
-export * from './constants';
 export * from './metadatas';
 export * from './decorators';

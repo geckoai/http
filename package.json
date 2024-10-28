@@ -1,6 +1,6 @@
 {
   "name": "@geckoai/http",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "The HTTP module takes the corresponding data from the class-transformer conversion instance and sends a request to the server. This module uses Axios.",
   "main": "dist/cjs",
   "types": "dist/types",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/quick-toolkit/http.git"
+    "url": "git+https://github.com/geckoai/http.git"
   },
   "keywords": [
     "geckoai",
@@ -30,7 +30,8 @@
   "homepage": "https://github.com/geckoai/http#readme",
   "dependencies": {
     "@geckoai/axios": "1.7.7",
-    "@geckoai/class-transformer": "^1.0.1"
+    "@geckoai/class-transformer": "1.0.2",
+    "@geckoai/class-mirror": "1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -38,22 +39,22 @@
     "@types/chai": "^4.2.22",
     "@types/mocha": "^8.2.3",
     "@types/node": "16.18.97",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
     "babel-loader": "^8.2.3",
     "chai": "^4.3.4",
-    "eslint": "7",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "mocha": "^9.1.3",
     "moment": "^2.29.1",
-    "prettier": "^2.4.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "ts-node": "^10.3.1",
-    "typedoc": "^0.22.7",
-    "typescript": "4.4.4",
     "url": "0.11.3",
+    "eslint": "^9.13.0",
+    "globals": "^15.11.0",
+    "@eslint/js": "^9.13.0",
+    "typescript-eslint": "^8.11.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "typescript": "~5.6.2",
+    "typedoc": "^0.26.10",
     "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1"
   }

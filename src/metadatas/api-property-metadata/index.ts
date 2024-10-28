@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-import { PropertyDecorate } from '@geckoai/class-mirror';
+import { PropertyDecorate } from "@geckoai/class-mirror";
 
 /**
  * @class ApiPropertyDecorate
@@ -46,7 +46,7 @@ export interface ApiPropertyMetadataImpl {
   /**
    * 位置
    */
-  in?: 'path' | 'query' | 'header' | 'body' | 'formData';
+  in?: "path" | "query" | "header" | "body" | "formData";
 
   /**
    * 类型

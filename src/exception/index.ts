@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from '@geckoai/axios';
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 
 /**
  * 异常类
@@ -27,5 +27,5 @@ export class HttpException<T = any, D = any> extends Error {
     return this.response;
   }
 
-  public name = 'HttpException';
+  public name = "HttpException";
 }

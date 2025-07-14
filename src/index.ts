@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-export * from './lib';
-export * from './exception';
-export * from './metadatas';
-export * from './decorators';
+export * from "./lib";
+export * from "./exception";
+export * from "./metadatas";
+export * from "./decorators";

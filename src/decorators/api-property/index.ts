@@ -20,8 +20,8 @@
  * SOFTWARE.
  */
 
-import { PropertyMirror } from '@geckoai/class-mirror';
-import { ApiPropertyDecorate, ApiPropertyMetadataImpl } from '../../metadatas';
+import { PropertyMirror } from "@geckoai/class-mirror";
+import { ApiPropertyDecorate, ApiPropertyMetadataImpl } from "../../metadatas";
 
 /**
  * ApiProperty装饰器

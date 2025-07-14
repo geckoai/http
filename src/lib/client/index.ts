@@ -20,14 +20,12 @@
  * SOFTWARE.
  */
 
-import { ClassMirror } from '@geckoai/class-mirror';
-import { Axios, AxiosRequestConfig, AxiosResponse } from '@geckoai/axios';
-import { ApiPropertyDecorate, ApiRequestDecorate } from '../../metadatas';
+import { ClassMirror } from "@geckoai/class-mirror";
+import { Axios, AxiosRequestConfig, AxiosResponse, mergeConfig } from "axios";
+import { ApiPropertyDecorate, ApiRequestDecorate } from "../../metadatas";
+import { Observable } from "rxjs";
 
-// @ts-ignore
-import defaults from '@geckoai/axios/lib/defaults';
-// @ts-ignore
-import mergeConfig from '@geckoai/axios/lib/core/mergeConfig';
+import defaults from "axios/unsafe/defaults";
 
 /**
  * @class HttpClient
@@ -37,7 +35,7 @@ export class HttpClient extends Axios {
    * 创建HttpClient实例
    * @param config
    */
-  public static create(config?: AxiosRequestConfig): HttpClient {
+  public static create(config: AxiosRequestConfig): HttpClient {
     return new HttpClient(mergeConfig(defaults, config));
   }
 
@@ -46,7 +44,7 @@ export class HttpClient extends Axios {
    * @param data
    * @param config
    */
-  public static parseConfig<D extends {} = any>(
+  public static parseConfig<D extends object = any>(
     data: D,
     config: AxiosRequestConfig<D> = {}
   ): {
@@ -61,7 +59,7 @@ export class HttpClient extends Axios {
       config.method = o.metadata.method;
       config.headers = config.headers ?? {};
       if (o.metadata.contentType) {
-        config.headers['Content-Type'] = o.metadata.contentType;
+        config.headers["Content-Type"] = o.metadata.contentType;
       }
       const newData: Record<PropertyKey, any> = {};
       let formData: FormData | undefined = undefined;
@@ -71,16 +69,16 @@ export class HttpClient extends Axios {
         const value = data[propertyMirror.propertyKey as keyof D] as any;
         if (value !== undefined) {
           propertyMirror.getAllDecorates(ApiPropertyDecorate).forEach((m) => {
-            if (m.metadata.in === 'path') {
+            if (m.metadata.in === "path") {
               pathVars[propertyMirror.propertyKey.toString()] = value;
               config.url = o.metadata.url;
-            } else if (m.metadata.in === 'header') {
+            } else if (m.metadata.in === "header") {
               config.headers = config.headers ?? {};
               config.headers[propertyMirror.propertyKey.toString()] = value;
-            } else if (m.metadata.in === 'query') {
+            } else if (m.metadata.in === "query") {
               config.params = config.params ?? {};
               config.params[propertyMirror.propertyKey.toString()] = value;
-            } else if (m.metadata.in === 'formData') {
+            } else if (m.metadata.in === "formData") {
               formData = formData || new FormData();
               if (value instanceof Array) {
                 value.map((x) =>
@@ -97,13 +95,13 @@ export class HttpClient extends Axios {
       });
 
       Object.keys(pathVars).forEach((key) => {
-        config.url = (config.url || '')?.replace(
+        config.url = (config.url || "")?.replace(
           new RegExp(`{s*${key}s*}`),
           pathVars[key]
         );
       });
 
-      if (['post', 'put', 'patch'].includes(config.method)) {
+      if (["post", "put", "patch"].includes(config.method)) {
         if (formData) {
           config.data = formData;
           // 将data的数据合并至 formData中
@@ -123,14 +121,13 @@ export class HttpClient extends Axios {
       }
 
       // nobody
-      if (['delete', 'get', 'head', 'options'].includes(config.method)) {
+      if (["delete", "get", "head", "options"].includes(config.method)) {
         config.params = { ...config.params, ...newData };
       }
     });
     if (!filter.length) {
-      throw new TypeError('Invalid ApiRequestDecorate.');
+      throw new TypeError("Invalid ApiRequestDecorate.");
     }
-
     return {
       config,
       metadata: filter,
@@ -141,11 +138,38 @@ export class HttpClient extends Axios {
    * 发起请求
    * @param data 此字段必须是带有@ApiRequest的class实例
    * @param config
+   *
+   * @return AxiosResponse
    */
-  public fetch<T = any, D extends {} = any>(
+  public fetch<T = any, D extends object = any>(
     data: D,
     config: AxiosRequestConfig<D> = {}
   ): Promise<AxiosResponse<T, D>> {
     return this.request(HttpClient.parseConfig(data, config).config);
+  }
+
+  /**
+   * 发起请求
+   * @param data 此字段必须是带有@ApiRequest的class实例
+   * @param config
+   *
+   * @return Observable<AxiosResponse<?>>
+   */
+  public observable<T = any, D extends object = any>(
+    data: D,
+    config: AxiosRequestConfig<D> = {}
+  ): Observable<AxiosResponse<T>> {
+    return new Observable<AxiosResponse<T>>((subscriber) => {
+      const abortController = new AbortController();
+      config.signal = abortController.signal;
+      this.request(HttpClient.parseConfig(data, config).config)
+        .then((res) => {
+          subscriber.next(res);
+        })
+        .catch((err) => subscriber.error(err));
+      return () => {
+        abortController.abort();
+      };
+    });
   }
 }

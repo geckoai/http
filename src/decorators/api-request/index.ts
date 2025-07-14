@@ -20,8 +20,8 @@
  * SOFTWARE.
  */
 
-import { ClassMirror } from '@geckoai/class-mirror';
-import { ApiRequestDecorate, ApiRequestMetadataImpl } from '../../metadatas';
+import { ClassMirror } from "@geckoai/class-mirror";
+import { ApiRequestDecorate, ApiRequestMetadataImpl } from "../../metadatas";
 
 /**
  * ApiRequest 装饰器

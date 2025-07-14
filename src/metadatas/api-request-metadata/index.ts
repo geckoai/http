@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-import { ClassDecorate, ClassConstructor } from '@geckoai/class-mirror';
+import { ClassDecorate, ClassConstructor } from "@geckoai/class-mirror";
 
 /**
  * @class ApiRequestDecorate
@@ -46,7 +46,7 @@ export interface ApiRequestMetadataImpl {
   /**
    * 请求方法
    */
-  method: 'post' | 'put' | 'get' | 'delete';
+  method: "post" | "put" | "get" | "delete";
 
   /**
    * 场景

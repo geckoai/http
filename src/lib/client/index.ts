@@ -165,6 +165,7 @@ export class HttpClient extends Axios {
       this.request(HttpClient.parseConfig(data, config).config)
         .then((res) => {
           subscriber.next(res);
+          subscriber.complete();
         })
         .catch((err) => subscriber.error(err));
       return () => {
